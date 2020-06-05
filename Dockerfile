@@ -1,8 +1,11 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
+
+
 
 RUN apt-get update
 RUN apt-get install software-properties-common -y
 RUN apt-get update
+
 
 # The basics
 RUN apt-get install -y \
@@ -18,33 +21,31 @@ RUN apt-get install -y \
   patch \
   zip
 
-#Cypress.io requirements
-RUN apt update
-RUN apt install xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 -y
-
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-RUN apt-get update
+# Cypress.io requirements
+RUN apt update
+RUN DEBIAN_FRONTEND=noninteractive apt install xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 -y
 
 # PHP
 RUN apt update && apt-get update && apt install apache2 -y && \
     apt install mysql-server -y && \
     apt-get install -y software-properties-common && \
     add-apt-repository ppa:ondrej/php && \
-    DEBIAN_FRONTEND=noninteractive apt install php7.2 -y && \
-    DEBIAN_FRONTEND=noninteractive apt install php7.2-dev php7.2-cli php7.2-common php7.2-curl php7.2-gd php7.2-json php7.2-opcache php7.2-mysql php7.2-mbstring php7.2-zip php7.2-xml php7.2-xdebug -y
+    DEBIAN_FRONTEND=noninteractive apt install php7.3 -y && \
+    DEBIAN_FRONTEND=noninteractive apt install php7.3-dev php7.3-cli php7.3-common php7.3-curl php7.3-gd php7.3-json php7.3-opcache php7.3-mysql php7.3-mbstring php7.3-zip php7.3-xml php7.3-xdebug -y
 
-RUN update-alternatives --set php /usr/bin/php7.2 && \
-    update-alternatives --set phar /usr/bin/phar7.2 && \
-    update-alternatives --set phar.phar /usr/bin/phar.phar7.2 && \
-    update-alternatives --set phpize /usr/bin/phpize7.2 && \
-    update-alternatives --set php-config /usr/bin/php-config7.2
+RUN update-alternatives --set php /usr/bin/php7.3 && \
+    update-alternatives --set phar /usr/bin/phar7.3 && \
+    update-alternatives --set phar.phar /usr/bin/phar.phar7.3 && \
+    update-alternatives --set phpize /usr/bin/phpize7.3 && \
+    update-alternatives --set php-config /usr/bin/php-config7.3
 
 # Disable loading of xdebug.so
-RUN rm -f /etc/php/7.2/cli/conf.d/20-xdebug.ini
+RUN rm -f /etc/php/7.3/cli/conf.d/20-xdebug.ini
 
 # Install AWS CLI
 RUN apt-get install -y awscli
@@ -84,7 +85,7 @@ RUN phpcs --config-set default_standard Drupal
 RUN mv /root/.composer /root/composer
 
 # Add local settings
-COPY php-cli.ini /etc/php/7.2/cli/conf.d/z_php.ini
+COPY php-cli.ini /etc/php/7.3/cli/conf.d/z_php.ini
 
 # Add git completion for the cli
 RUN curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
@@ -103,7 +104,7 @@ RUN chmod +x /opt/startup.sh
 # Starter script
 ENTRYPOINT ["/opt/startup.sh"]
 
-ENV PHP_INI_SCAN_DIR="/etc/php/7.2/cli/conf.d:/var/www/src/docker/etc/php"
+ENV PHP_INI_SCAN_DIR="/etc/php/7.3/cli/conf.d:/var/www/src/docker/etc/php"
 
 # By default, launch supervisord to keep the container running.
 CMD /usr/bin/supervisord -n
