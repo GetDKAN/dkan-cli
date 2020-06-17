@@ -1,6 +1,8 @@
-FROM ubuntu:20.04
+ARG BASE_IMAGE_TAG
 
+FROM ubuntu:${BASE_IMAGE_TAG}
 
+ARG DRUSH_VER
 
 RUN apt-get update
 RUN apt-get install software-properties-common -y
@@ -73,7 +75,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV PATH "$PATH:/root/.composer/vendor/bin"
 
 # Install Drush, PHPCS and Drupal Coding Standards
-RUN composer global require drush/drush
+RUN composer global require "drush/drush:$DRUSH_VER"
 RUN composer global require squizlabs/php_codesniffer
 RUN composer global require drupal/coder
 
