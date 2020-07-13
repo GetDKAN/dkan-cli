@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -e
 
 # Copy SSH keys from host if available
 # First see if we have a mount at /.ssh
@@ -9,5 +11,5 @@ elif [ -f  /.ssh-b2d/id_rsa ]; then
   cp /.ssh-b2d/id_rsa* ~/.ssh/
 fi
 
-# Execute passed CMD arguments
-exec "$@"
+# Execute passed CMD arguments.
+exec "${@}"
