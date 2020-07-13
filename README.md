@@ -1,5 +1,14 @@
 # DKAN CLI docker container image
 
+## DockerHub Automated Build Config
+DockerHub is configured to build two tags: classic and master:
++ master is for the latest and greatest, drush v10 and should suited to run DKAN2.
++ classic have the latest PHP and tooling, but only drush v8 since it's the upmost version that DKAN-classic supports.
+
+Both docker tags tracks the git master branch. When master is updated, latest
+will be built with drush v10 installed and classic will be built with drush v8
+installed.
+
 ## Work with image locally
 Makefile offers handy commands to work with image locally.
 
