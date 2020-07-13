@@ -1,7 +1,7 @@
 -include env_make
 
 TAG ?= latest
-UBUNTU_VER ?= 20.04
+BASE_IMAGE_TAG ?= drupal-acquia-php-7.3
 
 ifeq ($(TAG), classic)
         DRUSH_VER = "^8"
@@ -17,8 +17,9 @@ NAME = dkan-cli
 default: build
 
 build:
+	echo $(BASE_IMAGE_TAG)
 	docker build -t $(REPO):$(TAG) \
-        --build-arg BASE_IMAGE_TAG=$(UBUNTU_VER) \
+        --build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) \
 	    --build-arg DRUSH_VER=$(DRUSH_VER) \
 	    ./
 

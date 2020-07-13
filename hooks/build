@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -z "$UBUNTU_VER" ] && UBUNTU_VER=20.04
+[ -z "$BASE_IMAGE_TAG" ] && BASE_IMAGE_TAG=20.04
 
  # DKAN classic (Drupal 7) only works with drush v8.
 if [[ "$DOCKER_TAG" == "classic" ]]; then
@@ -10,7 +10,7 @@ else
 fi
 
 docker build \
-    --build-arg BASE_IMAGE_TAG="$UBUNTU_VER" \
+    --build-arg BASE_IMAGE_TAG="$BASE_IMAGE_TAG" \
     --build-arg DRUSH_VER="$DRUSH_VER" \
     -f "$DOCKERFILE_PATH" \
     -t "$IMAGE_NAME" \
