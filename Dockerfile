@@ -21,6 +21,8 @@ RUN \
   awscli \
   # Install ClamAV.
   clamav \
+  # Install Doxygen
+  doxygen \
   # Install Node JS.
   nodejs &&\
   # Cleanup.
