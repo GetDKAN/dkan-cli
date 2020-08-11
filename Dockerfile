@@ -2,8 +2,6 @@ ARG BASE_IMAGE_TAG
 
 FROM drydockcloud/${BASE_IMAGE_TAG}:latest
 
-ARG DRUSH_VER
-
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PHP_INI_SCAN_DIR="/etc/php/7.2/cli/conf.d:/var/www/src/docker/etc/php"
 
@@ -38,18 +36,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 
 # Allow composer superuser and set environment to use composer executables path
 ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV PATH "$PATH:/root/.composer/vendor/bin"
-
-# Install Drush, PHPCS and Drupal Coding Standards
-RUN composer global require "drush/drush:$DRUSH_VER" squizlabs/php_codesniffer drupal/coder && \
-  # Set Drupal as default CodeSniffer Standard
-  phpcs --config-set installed_paths /root/.composer/vendor/drupal/coder/coder_sniffer/ &&\
-  phpcs --config-set default_standard Drupal
-
-# Move .composer to give way to the user's .composer config. Make sure to
-# update the PATH.
-RUN mv /root/.composer /root/composer
-ENV PATH /root/composer/vendor/bin:$PATH
 
 # Add git completion for the cli
 RUN curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash &&\
