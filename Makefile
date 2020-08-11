@@ -3,12 +3,6 @@
 TAG ?= latest
 BASE_IMAGE_TAG ?= drupal-acquia-php-7.3
 
-ifeq ($(TAG), classic)
-        DRUSH_VER = "^8"
-else
-        DRUSH_VER = "^10"
-endif
-
 REPO = getdkan/dkan-cli
 NAME = dkan-cli
 
@@ -19,8 +13,7 @@ default: build
 build:
 	echo $(BASE_IMAGE_TAG)
 	docker build -t $(REPO):$(TAG) \
-        --build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) \
-	    --build-arg DRUSH_VER=$(DRUSH_VER) \
+            --build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) \
 	    ./
 
 test:
