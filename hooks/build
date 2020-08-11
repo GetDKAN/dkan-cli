@@ -2,16 +2,8 @@
 
 [ -z "$BASE_IMAGE_TAG" ] && BASE_IMAGE_TAG=drupal-acquia-php-7.3
 
- # DKAN classic (Drupal 7) only works with drush v8.
-if [[ "$DOCKER_TAG" == "classic" ]]; then
-    DRUSH_VER="^8"
-else
-    DRUSH_VER="^10"
-fi
-
 docker build \
     --build-arg BASE_IMAGE_TAG="$BASE_IMAGE_TAG" \
-    --build-arg DRUSH_VER="$DRUSH_VER" \
     -f "$DOCKERFILE_PATH" \
     -t "$IMAGE_NAME" \
     .
