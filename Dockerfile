@@ -12,7 +12,7 @@ RUN \
   curl -sL https://deb.nodesource.com/setup_14.x | bash &&\
   apt-get update &&\
   # Install basic tools/packages.
-  apt-get install -y apt-transport-https git pv patch vim zip unzip \
+  apt-get install -y apt-transport-https git pv patch vim zip unzip chromium-browser \
   # Install Cypress.io requirements
   xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 \
   # Drush dependencies.
