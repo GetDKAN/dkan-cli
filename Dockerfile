@@ -5,7 +5,7 @@ FROM drydockcloud/${BASE_IMAGE_TAG}:latest
 ARG DRUSH_VER
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV PHP_INI_SCAN_DIR="/etc/php/7.2/cli/conf.d:/var/www/src/docker/etc/php"
+ENV PHP_INI_SCAN_DIR="/etc/php/7.4/cli/conf.d:/var/www/src/docker/etc/php"
 
 RUN \
   # Add Nodejs source.
