@@ -8,6 +8,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PHP_INI_SCAN_DIR="/etc/php/7.2/cli/conf.d:/var/www/src/docker/etc/php"
 
 RUN \
+  apt-get update &&\
+  apt-get upgrade -y &&\
   # Add Nodejs source.
   curl -sL https://deb.nodesource.com/setup_14.x | bash &&\
   apt-get update &&\
