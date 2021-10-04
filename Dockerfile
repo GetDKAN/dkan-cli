@@ -40,7 +40,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 
 # Allow composer superuser and set environment to use composer executables path
 ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV PATH "$PATH:/root/.composer/vendor/bin"
+ENV PATH "$PATH:/root/.config/composer/vendor/bin"
 
 # Install Drush, PHPCS and Drupal Coding Standards
 RUN composer global require "drush/drush:$DRUSH_VER" squizlabs/php_codesniffer drupal/coder && \
@@ -50,7 +50,7 @@ RUN composer global require "drush/drush:$DRUSH_VER" squizlabs/php_codesniffer d
 
 # Move .composer to give way to the user's .composer config. Make sure to
 # update the PATH.
-RUN mv /root/.composer /root/composer
+RUN mv /root/.config/composer /root/composer
 ENV PATH /root/composer/vendor/bin:$PATH
 
 # Add git completion for the cli
