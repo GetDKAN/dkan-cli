@@ -1,7 +1,7 @@
 -include env_make
 
 TAG ?= latest
-BASE_IMAGE_TAG ?= drupal-acquia-php-7.3
+BASE_IMAGE_TAG ?= drupal-acquia-php-7.4
 
 ifeq ($(TAG), classic)
         DRUSH_VER = "^8"

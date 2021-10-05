@@ -5,9 +5,11 @@ FROM drydockcloud/${BASE_IMAGE_TAG}:latest
 ARG DRUSH_VER
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV PHP_INI_SCAN_DIR="/etc/php/7.2/cli/conf.d:/var/www/src/docker/etc/php"
+ENV PHP_INI_SCAN_DIR="/usr/local/php/etc/conf.d:/var/www/src/docker/etc/php"
 
 RUN \
+  apt-get update &&\
+  apt-get upgrade -y &&\
   # Add Nodejs source.
   curl -sL https://deb.nodesource.com/setup_14.x | bash &&\
   apt-get update &&\
@@ -38,7 +40,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 
 # Allow composer superuser and set environment to use composer executables path
 ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV PATH "$PATH:/root/.composer/vendor/bin"
+ENV PATH "$PATH:/root/.config/composer/vendor/bin"
 
 # Install Drush, PHPCS and Drupal Coding Standards
 RUN composer global require "drush/drush:$DRUSH_VER" squizlabs/php_codesniffer drupal/coder && \
@@ -48,7 +50,7 @@ RUN composer global require "drush/drush:$DRUSH_VER" squizlabs/php_codesniffer d
 
 # Move .composer to give way to the user's .composer config. Make sure to
 # update the PATH.
-RUN mv /root/.composer /root/composer
+RUN mv /root/.config/composer /root/composer
 ENV PATH /root/composer/vendor/bin:$PATH
 
 # Add git completion for the cli
