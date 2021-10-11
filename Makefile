@@ -1,6 +1,6 @@
 -include env_make
 
-TAG ?= latest
+TAG ?= classic
 UBUNTU_VER ?= 20.04
 
 ifeq ($(TAG), classic)
