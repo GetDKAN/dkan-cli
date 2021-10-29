@@ -58,7 +58,8 @@ RUN curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/mas
   curl -o ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 
 # Install Cypress
-RUN npm install cypress
+RUN npm --prefix ./ install cypress
+ENV PATH $PATH:/var/www/node_modules/cypress/bin
 
 # Add local settings
 COPY php-cli.ini /usr/local/php/etc/fpm/conf.d/z_php.ini
