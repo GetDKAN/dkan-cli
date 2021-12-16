@@ -5,9 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "cypress": "^8.7.0",
+    "eslint": "^3.2.1",
     "eslint-plugin-cypress": "^2.11.1",
     "@testing-library/cypress": "^8.0.1",
-    "@testing-library/dom": "^7.16.1"
+    "@testing-library/dom": "^7.16.1" 
   },
   "devDependencies": {},
   "scripts": {
