@@ -11,7 +11,7 @@ RUN \
   apt-get update &&\
   apt-get upgrade -y &&\
   # Add Nodejs source.
-  curl -sL https://deb.nodesource.com/setup_14.x | bash &&\
+  curl -sL https://deb.nodesource.com/setup_16.x | bash &&\
   apt-get update &&\
   # Install basic tools/packages.
   apt-get install -y apt-transport-https git pv patch vim zip unzip chromium-browser \
