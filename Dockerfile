@@ -42,6 +42,9 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV PATH "$PATH:/root/.config/composer/vendor/bin"
 
+# Allow plugins
+RUN composer global config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+
 # Install Drush, PHPCS and Drupal Coding Standards
 RUN composer global require "drush/drush:$DRUSH_VER" squizlabs/php_codesniffer drupal/coder && \
   # Set Drupal as default CodeSniffer Standard
