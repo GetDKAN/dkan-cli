@@ -23,13 +23,30 @@ RUN \
   awscli \
   # Install ClamAV.
   clamav \
-  # Install Doxygen
-  doxygen \
+  # Install cmake
+  cmake \
+  # Install flex
+  flex \
+  # Install bison
+  bison \
   # Install Node JS.
   nodejs &&\
   # Cleanup.
   apt-get clean &&\
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Install doxygen
+ENV PATH /usr/local/bin:$PATH
+RUN wget https://github.com/doxygen/doxygen/archive/refs/tags/Release_1_8_19.tar.gz && \
+  tar xzvf Release_1_8_19.tar.gz && \
+  cd doxygen-Release_1_8_19 && \
+  mkdir build && \
+  cd build && \
+  cmake -G "Unix Makefiles" ..  && \
+  make && \
+  make install && \
+  cd ../../ && \
+  rm -rf doxygen-Release_1_8_19
 
 # Install Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&\
