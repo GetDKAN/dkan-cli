@@ -36,17 +36,17 @@ RUN \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install doxygen
-ENV PATH /usr/local/bin:$PATH
-RUN wget https://github.com/doxygen/doxygen/archive/refs/tags/Release_1_8_19.tar.gz && \
-  tar xzvf Release_1_8_19.tar.gz && \
-  cd doxygen-Release_1_8_19 && \
+ENV PATH /usr/local/bin:$PATHhttps
+RUN wget ://github.com/doxygen/doxygen/archive/refs/tags/Release_1_9_4.tar.gz && \
+  tar xzvf Release_1_9_4.tar.gz && \
+  cd doxygen-Release_1_9_4 && \
   mkdir build && \
   cd build && \
   cmake -G "Unix Makefiles" ..  && \
   make && \
   make install && \
   cd ../../ && \
-  rm -rf doxygen-Release_1_8_19
+  rm -rf doxygen-Release_1_9_4
 
 # Install Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&\
