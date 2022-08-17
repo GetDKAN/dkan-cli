@@ -77,6 +77,10 @@ ENV PATH /root/composer/vendor/bin:$PATH
 RUN curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash &&\
   curl -o ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 
+# Install Cypress and testing-library dependencies.
+RUN npm --prefix ./ install
+ENV PATH $PATH:/var/www/node_modules/cypress/bin
+
 # Add local settings
 COPY php-cli.ini /usr/local/php/etc/fpm/conf.d/z_php.ini
 COPY bash.rc /root/.bashrc
