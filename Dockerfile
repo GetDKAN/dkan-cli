@@ -73,6 +73,11 @@ RUN composer global require "drush/drush:$DRUSH_VER" squizlabs/php_codesniffer d
 RUN mv /root/.config/composer /root/composer
 ENV PATH /root/composer/vendor/bin:$PATH
 
+# Install Cypress and testing-library dependencies.
+COPY package.json /usr/local/bin
+RUN npm --prefix /usr/local/bin install
+ENV PATH $PATH:/usr/local/bin/node_modules/cypress/bin
+
 # Add git completion for the cli
 RUN curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash &&\
   curl -o ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
