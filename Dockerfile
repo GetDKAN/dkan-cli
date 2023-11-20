@@ -6,12 +6,17 @@ ARG DRUSH_VER
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PHP_INI_SCAN_DIR="/usr/local/php/etc/conf.d:/var/www/src/docker/etc/php"
+ENV NODE_MAJOR=16
 
 RUN \
   apt-get update &&\
   apt-get upgrade -y &&\
+  apt-get install apt-transport-https ca-certificates gnupg -y &&\
   # Add Nodejs source.
-  curl -sL https://deb.nodesource.com/setup_14.x | bash &&\
+  mkdir -p /etc/apt/keyrings &&\
+  curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg &&\
+  echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list &&\
+
   apt-get update &&\
   # Install basic tools/packages.
   apt-get install -y apt-transport-https git pv patch vim zip unzip chromium-browser \
